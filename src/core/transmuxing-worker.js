@@ -57,6 +57,7 @@ let TransmuxingWorker = function (self) {
                 controller.on(TransmuxingEvents.METADATA_ARRIVED, onMetaDataArrived.bind(this));
                 controller.on(TransmuxingEvents.SCRIPTDATA_ARRIVED, onScriptDataArrived.bind(this));
                 controller.on(TransmuxingEvents.STATISTICS_INFO, onStatisticsInfo.bind(this));
+                controller.on(TransmuxingEvents.SEI_INFO, onSeiInfo.bind(this));
                 controller.on(TransmuxingEvents.RECOMMEND_SEEKPOINT, onRecommendSeekpoint.bind(this));
                 break;
             case 'destroy':
@@ -159,6 +160,14 @@ let TransmuxingWorker = function (self) {
         let obj = {
             msg: TransmuxingEvents.STATISTICS_INFO,
             data: statInfo
+        };
+        self.postMessage(obj);
+    }
+
+    function onSeiInfo(seiInfo) {
+        let obj = {
+            msg: TransmuxingEvents.SEI_INFO,
+            data: seiInfo
         };
         self.postMessage(obj);
     }

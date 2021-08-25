@@ -258,6 +258,9 @@ class FlvPlayer {
                 this._mediaElement.currentTime = milliseconds / 1000;
             }
         });
+        this._transmuxer.on(TransmuxingEvents.SEI_INFO, (seiInfo) => {
+            this._emitter.emit(PlayerEvents.SEI_INFO, Object.assign({}, seiInfo));
+        });
 
         this._transmuxer.open();
     }

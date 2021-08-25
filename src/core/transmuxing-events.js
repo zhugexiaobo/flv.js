@@ -27,6 +27,7 @@ const TransmuxingEvents = {
     METADATA_ARRIVED: 'metadata_arrived',
     SCRIPTDATA_ARRIVED: 'scriptdata_arrived',
     STATISTICS_INFO: 'statistics_info',
+    SEI_INFO: 'sei_info',
     RECOMMEND_SEEKPOINT: 'recommend_seekpoint'
 };
 

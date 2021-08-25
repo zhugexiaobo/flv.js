@@ -357,6 +357,7 @@ declare namespace FlvJs {
         METADATA_ARRIVED: string;
         SCRIPTDATA_ARRIVED: string;
         STATISTICS_INFO: string;
+        SEI_INFO: string;
     }
 
     interface ErrorTypes {

@@ -23,7 +23,8 @@ const PlayerEvents = {
     MEDIA_INFO: 'media_info',
     METADATA_ARRIVED: 'metadata_arrived',
     SCRIPTDATA_ARRIVED: 'scriptdata_arrived',
-    STATISTICS_INFO: 'statistics_info'
+    STATISTICS_INFO: 'statistics_info',
+    SEI_INFO: 'sei_info'
 };
 
 export default PlayerEvents;

@@ -63,6 +63,7 @@ class Transmuxer {
             ctl.on(TransmuxingEvents.METADATA_ARRIVED, this._onMetaDataArrived.bind(this));
             ctl.on(TransmuxingEvents.SCRIPTDATA_ARRIVED, this._onScriptDataArrived.bind(this));
             ctl.on(TransmuxingEvents.STATISTICS_INFO, this._onStatisticsInfo.bind(this));
+            ctl.on(TransmuxingEvents.SEI_INFO, this._onSeiInfo.bind(this));
             ctl.on(TransmuxingEvents.RECOMMEND_SEEKPOINT, this._onRecommendSeekpoint.bind(this));
         }
     }
@@ -184,6 +185,12 @@ class Transmuxer {
         });
     }
 
+    _onSeiInfo(seiInfo) {
+        Promise.resolve().then(() => {
+            this._emitter.emit(TransmuxingEvents.SEI_INFO, seiInfo);
+        });
+    }
+
     _onIOError(type, info) {
         Promise.resolve().then(() => {
             this._emitter.emit(TransmuxingEvents.IO_ERROR, type, info);
@@ -235,6 +242,7 @@ class Transmuxer {
             case TransmuxingEvents.METADATA_ARRIVED:
             case TransmuxingEvents.SCRIPTDATA_ARRIVED:
             case TransmuxingEvents.STATISTICS_INFO:
+            case TransmuxingEvents.SEI_INFO:
                 this._emitter.emit(message.msg, data);
                 break;
             case TransmuxingEvents.IO_ERROR:

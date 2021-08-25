@@ -52,6 +52,7 @@ class FLVDemuxer {
 
         this._onError = null;
         this._onMediaInfo = null;
+        this._onSeiInfo = null;
         this._onMetaDataArrived = null;
         this._onScriptDataArrived = null;
         this._onTrackMetadata = null;
@@ -130,6 +131,7 @@ class FLVDemuxer {
 
         this._onError = null;
         this._onMediaInfo = null;
+        this._onSeiInfo = null;
         this._onMetaDataArrived = null;
         this._onScriptDataArrived = null;
         this._onTrackMetadata = null;
@@ -183,6 +185,14 @@ class FLVDemuxer {
 
     set onMediaInfo(callback) {
         this._onMediaInfo = callback;
+    }
+
+    get onSeiInfo() {
+        return this._onSeiInfo;
+    }
+
+    set onSeiInfo(callback) {
+        this._onSeiInfo = callback;
     }
 
     get onMetaDataArrived() {
@@ -1088,6 +1098,14 @@ class FLVDemuxer {
             }
 
             let data = new Uint8Array(arrayBuffer, dataOffset + offset, lengthSize + naluSize);
+
+            if (unitType === 6 && this._onSeiInfo) { // SEI
+                this._onSeiInfo({
+                    sei: String.fromCharCode.apply(null, data),
+                    ts: dts + cts
+                });
+            }
+
             let unit = {type: unitType, data: data};
             units.push(unit);
             length += data.byteLength;
